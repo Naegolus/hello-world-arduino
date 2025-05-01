@@ -24,11 +24,12 @@
 */
 
 #include "AvrSupervising.h"
+#include "SystemDebugging.h"
 
 #define dForEach_ProcState(gen) \
 		gen(StStart) \
+		gen(StDbgReadyWait) \
 		gen(StMain) \
-		gen(StNop) \
 
 #define dGenProcStateEnum(s) s,
 dProcessStateEnum(ProcState);
@@ -40,9 +41,12 @@ dProcessStateStr(ProcState);
 
 using namespace std;
 
+SystemDebugging *pDbg = NULL;
+
 AvrSupervising::AvrSupervising()
 	: Processing("AvrSupervising")
 	//, mStartMs(0)
+	, mCntCycles(0)
 {
 	mState = StStart;
 }
@@ -61,13 +65,44 @@ Success AvrSupervising::process()
 	{
 	case StStart:
 
+		pDbg = SystemDebugging::create(this);
+		if (!pDbg)
+			return procErrLog(-1, "could not create process");
+
+		start(pDbg);
+
+		// TODO: Set LED1
+
+		mState = StDbgReadyWait;
+
+		break;
+	case StDbgReadyWait:
+
+		if (!pDbg->ready())
+			break;
+
+		// TODO: Set LED1
+
+		cmdReg("led1",
+			cmdLedOneToggle,
+			"", "Toggle LED1",
+			"LEDs");
+
+		cmdReg("led2",
+			cmdLedTwoToggle,
+			"", "Toggle LED2",
+			"LEDs");
+
+		/* start interrupts */
+
+		// TODO: Start interrupts
+
 		mState = StMain;
 
 		break;
 	case StMain:
 
-		break;
-	case StNop:
+		++mCntCycles;
 
 		break;
 	default:
@@ -82,7 +117,27 @@ void AvrSupervising::processInfo(char *pBuf, char *pBufEnd)
 #if 1
 	dInfo("State\t\t\t%s\n", ProcStateString[mState]);
 #endif
+	dInfo("Cycles\t\t%lu\n", mCntCycles);
 }
 
 /* static functions */
+
+void AvrSupervising::cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd)
+{
+	(void)pArgs;
+
+	// TODO: Toggle LED1
+
+	dInfo("LED1 toggled");
+	infLog("LED1 toggled");
+}
+
+void AvrSupervising::cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd)
+{
+	(void)pArgs;
+
+	// TODO: Toggle LED2
+
+	dInfo("LED2 toggled");
+}
 

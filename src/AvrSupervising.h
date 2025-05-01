@@ -59,8 +59,11 @@ private:
 
 	/* member variables */
 	//uint32_t mStartMs;
+	uint32_t mCntCycles;
 
 	/* static functions */
+	static void cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd);
+	static void cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd);
 
 	/* static variables */
 
