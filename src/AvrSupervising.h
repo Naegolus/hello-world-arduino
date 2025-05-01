@@ -60,6 +60,7 @@ private:
 	/* member variables */
 	//uint32_t mStartMs;
 	uint32_t mCntCycles;
+	uint8_t mLed;
 
 	/* static functions */
 	static void cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd);

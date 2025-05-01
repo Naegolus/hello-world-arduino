@@ -49,6 +49,7 @@ AvrSupervising::AvrSupervising()
 	: Processing("AvrSupervising")
 	//, mStartMs(0)
 	, mCntCycles(0)
+	, mLed(0)
 {
 	mState = StStart;
 }
@@ -74,9 +75,9 @@ Success AvrSupervising::process()
 		start(pDbg);
 
 		pinMode(LED_BUILTIN, OUTPUT);
-		digitalWrite(LED_BUILTIN, HIGH);
 
-		// TODO: Set LED1
+		mLed = 1;
+		digitalWrite(LED_BUILTIN, HIGH);
 
 		mState = StDbgReadyWait;
 
@@ -124,7 +125,8 @@ void AvrSupervising::cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd)
 {
 	(void)pArgs;
 
-	// TODO: Toggle LED1
+	mLed ^= 1;
+	digitalWrite(LED_BUILTIN, mLed ? HIGH : LOW);
 
 	dInfo("LED1 toggled");
 	infLog("LED1 toggled");
