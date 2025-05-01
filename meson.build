@@ -24,7 +24,7 @@ srcs = [
   'SystemCore/Log.cpp',
 ]
 
-executable('firmware',
+myApp = executable('firmware',
   srcs,
   cpp_args : c_args,
   link_args : link_args,
@@ -35,11 +35,11 @@ executable('firmware',
   ]),
 )
 
-# optional
-#custom_target('hex',
-#  input : 'firmware',
-#  output : 'firmware.hex',
-#  command : ['avr-objcopy', '-O', 'ihex', '@INPUT@', '@OUTPUT@'],
-#  depend_files : 'firmware'
-#)
+custom_target(
+  'app-hex',
+  input : myApp,
+  output : 'firmware.hex',
+  command : ['avr-objcopy', '-O', 'ihex', '@INPUT@', '@OUTPUT@'],
+  build_by_default : true,
+)
 
