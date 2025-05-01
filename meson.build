@@ -6,8 +6,10 @@ project('arduino_bare', 'cpp', default_options : ['cpp_std=c++11'])
 home_dir = run_command('sh', '-c', 'echo $HOME', check: true).stdout().strip()
 message('Home directory: ' + home_dir)
 
-arduino_core = home_dir + '/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino'
-arduino_variant = home_dir + '/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/micro'
+ardu_dir = home_dir + '/.arduino15/packages/arduino'
+arduino_core = ardu_dir + '/hardware/avr/1.8.6/cores/arduino'
+arduino_variant = ardu_dir + '/hardware/avr/1.8.6/variants/micro'
+ld_script = ardu_dir + '/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/lib/ldscripts/avr5.xu'
 
 c_args = [
   '-mmcu=atmega32u4',
@@ -25,7 +27,8 @@ c_args = [
 link_args = [
   '-mmcu=atmega32u4',
   '-Wl,--gc-sections',
-  '-Wl,-T../atmega32u4.ld',
+  '-lcore -lc -lm',
+  '-Wl,-T' + ld_script,
 ]
 
 srcs = [
