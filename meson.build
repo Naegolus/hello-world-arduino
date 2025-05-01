@@ -31,6 +31,7 @@ myApp = executable('firmware',
   link_args : link_args,
   install : false,
   include_directories : include_directories([
+    './SystemCore/targets/stm32',
     './SystemCore',
     './src',
   ]),
