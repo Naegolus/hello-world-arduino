@@ -63,7 +63,6 @@ private:
 
 	/* static functions */
 	static void cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd);
-	static void cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd);
 
 	/* static variables */
 

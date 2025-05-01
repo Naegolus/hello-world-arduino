@@ -23,6 +23,8 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <Arduino.h>
+
 #include "AvrSupervising.h"
 #include "SystemDebugging.h"
 
@@ -71,6 +73,9 @@ Success AvrSupervising::process()
 
 		start(pDbg);
 
+		pinMode(LED_BUILTIN, OUTPUT);
+		digitalWrite(LED_BUILTIN, HIGH);
+
 		// TODO: Set LED1
 
 		mState = StDbgReadyWait;
@@ -81,16 +86,9 @@ Success AvrSupervising::process()
 		if (!pDbg->ready())
 			break;
 
-		// TODO: Set LED1
-
 		cmdReg("led1",
 			cmdLedOneToggle,
 			"", "Toggle LED1",
-			"LEDs");
-
-		cmdReg("led2",
-			cmdLedTwoToggle,
-			"", "Toggle LED2",
 			"LEDs");
 
 		/* start interrupts */
@@ -130,14 +128,5 @@ void AvrSupervising::cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd)
 
 	dInfo("LED1 toggled");
 	infLog("LED1 toggled");
-}
-
-void AvrSupervising::cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd)
-{
-	(void)pArgs;
-
-	// TODO: Toggle LED2
-
-	dInfo("LED2 toggled");
 }
 

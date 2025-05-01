@@ -3,13 +3,15 @@
 
 AvrSupervising *pApp = NULL;
 
-void setup()
+int main()
 {
-	pApp = AvrSupervising::create();
-}
+	AvrSupervising *pApp = AvrSupervising::create();
+	if (!pApp)
+		return -1;
 
-void loop()
-{
-	pApp->treeTick();
+	while (1)
+		pApp->treeTick();
+
+	return 0;
 }
 

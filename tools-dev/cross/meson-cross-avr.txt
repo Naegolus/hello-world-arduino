@@ -15,6 +15,6 @@ sys_root = '/'
 [host_machine]
 system = 'none'
 cpu_family = 'avr'
-cpu = 'atmega328p'
+cpu = 'atmega32u4'
 endian = 'little'
 
