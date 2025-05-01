@@ -17,11 +17,12 @@ link_args = [
 ]
 
 srcs = [
-  'src/main.cpp',
   'SystemCore/Processing.cpp',
+  'SystemCore/Log.cpp',
   'SystemCore/targets/stm32/SystemDebugging.cpp',
   'SystemCore/targets/stm32/SingleWireTransfering.cpp',
-  'SystemCore/Log.cpp',
+  'src/main.cpp',
+  'src/AvrSupervising.cpp',
 ]
 
 myApp = executable('firmware',
