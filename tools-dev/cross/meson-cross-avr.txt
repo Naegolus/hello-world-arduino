@@ -1,0 +1,20 @@
+
+[binaries]
+c = 'avr-gcc'
+cpp = 'avr-g++'
+ar = 'avr-ar'
+strip = 'avr-strip'
+objcopy = 'avr-objcopy'
+size = 'avr-size'
+
+[properties]
+needs_exe_wrapper = true
+has_function_printf = true
+sys_root = '/'
+
+[host_machine]
+system = 'none'
+cpu_family = 'avr'
+cpu = 'atmega328p'
+endian = 'little'
+
