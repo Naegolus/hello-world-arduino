@@ -5,7 +5,9 @@ AvrSupervising *pApp = NULL;
 
 int main()
 {
-	AvrSupervising *pApp = AvrSupervising::create();
+	AvrSupervising *pApp;
+
+	pApp = AvrSupervising::create();
 	if (!pApp)
 		return -1;
 
