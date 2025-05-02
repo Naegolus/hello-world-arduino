@@ -1,8 +1,6 @@
 
 #include "AvrSupervising.h"
 
-AvrSupervising *pApp = NULL;
-
 int main()
 {
 	AvrSupervising *pApp;
